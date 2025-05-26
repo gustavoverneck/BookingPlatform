@@ -23,6 +23,8 @@ class User(UserBase):
     is_active: bool
     
     appointments: List["Appointment"] = []
+    
+    business: List["Business"] = []
 
     # Allow User schema to be created from ORM model
     class Config:
