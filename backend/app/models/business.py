@@ -1,8 +1,8 @@
 # app/models/business.py
-from sqlalchemy import Column, Integer, String, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, Time
 from sqlalchemy.orm import relationship
 
-from db.session import Base
+from app.db.session import Base
 
 class Business(Base):
     __tablename__ = "businesses"
@@ -20,3 +20,6 @@ class Business(Base):
         back_populates="business",
         cascade="all, delete-orphan"
     )
+    
+    opens_at = Column(Time, nullable=True)
+    closes_at = Column(Time, nullable=True)

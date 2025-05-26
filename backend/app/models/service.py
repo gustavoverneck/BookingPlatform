@@ -1,8 +1,7 @@
 # app/models/service.py
 from sqlalchemy import Column, Integer, String, Text, Numeric, ForeignKey
 from sqlalchemy.orm import relationship
-
-from db.session import Base
+from app.db.session import Base
 
 class Service(Base):
     __tablename__ = "services"
@@ -18,3 +17,9 @@ class Service(Base):
     # Foreign key to connect service to business
     business_id = Column(Integer, ForeignKey("businesses.id"), nullable=False)
     business = relationship("Business", back_populates="services")
+    
+    appointments = relationship(
+        "Appointment", 
+        back_populates="service", 
+        cascade="all, delete-orphan"
+    )

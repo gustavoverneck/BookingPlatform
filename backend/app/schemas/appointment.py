@@ -2,7 +2,7 @@
 import datetime
 from pydantic import BaseModel
 from typing import Optional
-
+from .user import User 
 
 # Base Schemas
 class AppointmentBase(BaseModel):
@@ -12,7 +12,7 @@ class AppointmentBase(BaseModel):
 
 # --- Specific Operations Schemas
 class AppointmentCreate(AppointmentBase):
-    pass
+    service_id: int 
 
 class AppointmentUpdate(AppointmentBase):
     title: Optional[str] = None
@@ -23,6 +23,8 @@ class AppointmentUpdate(AppointmentBase):
 class Appointment(AppointmentBase):
     id: int
     user: "User"
+    service_id: int
+    service: "Service"
 
     class Config:
         from_attributes = True

@@ -7,3 +7,4 @@ from .service import Service
 User.model_rebuild()
 Appointment.model_rebuild()
 Business.model_rebuild()
+Service.model_rebuild()

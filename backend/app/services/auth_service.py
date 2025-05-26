@@ -5,9 +5,9 @@ from typing import Optional
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 
-from core.config import settings
-from models import user as user_model
-from services import user_service
+from app.core.config import settings
+from app.models import user as user_model
+from app.services import user_service
 
 # Check if user exists and if password is correct
 def authenticate_user(

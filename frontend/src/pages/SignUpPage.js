@@ -17,8 +17,8 @@ const SignUpPage = () => {
         setSuccess('');
 
         const payload = {
-            full_name: fullName,
             email: email,
+            full_name: fullName,
             password: password,
         };
 

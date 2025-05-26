@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 from typing import List, Optional
 
-from models import business as business_model
-from schemas import business as business_schema
+from app.models import business as business_model
+from app.schemas import business as business_schema
 
 # Create a new business, associating to owner
 def create_business(

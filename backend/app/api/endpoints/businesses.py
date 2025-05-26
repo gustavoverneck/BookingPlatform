@@ -1,12 +1,14 @@
 # app/api/endpoints/businesses.py
+
+import datetime
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from api import deps
-from models import user as user_model
-from schemas import business as business_schema
-from services import business_service
+from app.api import deps
+from app.models import user as user_model
+from app.schemas import business as business_schema
+from app.services import business_service, appointment_service
 
 router = APIRouter()
 
@@ -45,3 +47,26 @@ def read_business(
             status_code=status.HTTP_404_NOT_FOUND, detail="Empresa não encontrada"
         )
     return business
+
+@router.get("/{business_id}/availability", response_model=List[datetime.time])
+def get_business_availability(
+    *,
+    db: Session = Depends(deps.get_db),
+    business_id: int,
+    service_id: int,
+    target_date: datetime.date
+):
+
+    if not service_id or not target_date:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="service_id e target_date são obrigatórios."
+        )
+
+    slots = appointment_service.get_available_slots(
+        db=db,
+        business_id=business_id,
+        service_id=service_id,
+        target_date=target_date
+    )
+    return slots

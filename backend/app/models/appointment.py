@@ -2,8 +2,7 @@
 
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
-
-from db.session import Base
+from app.db.session import Base
 
 class Appointment(Base):
     __tablename__ = "appointments"
@@ -15,5 +14,7 @@ class Appointment(Base):
     
     # Foreign key to associate to an user
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    
     user = relationship("User", back_populates="appointments")
+    
+    service_id = Column(Integer, ForeignKey("services.id"), nullable=False)
+    service = relationship("Service", back_populates="appointments")

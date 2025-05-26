@@ -3,10 +3,10 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from api import deps
-from models import user as user_model
-from schemas import appointment as appointment_schema
-from services import appointment_service
+from app.api import deps
+from app.models import user as user_model
+from app.schemas import appointment as appointment_schema
+from app.services import appointment_service
 
 router = APIRouter(
     prefix="/appointments",

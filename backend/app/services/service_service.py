@@ -2,8 +2,8 @@
 from sqlalchemy.orm import Session
 from typing import List, Optional
 
-from models import service as service_model
-from schemas import service as service_schema
+from app.models import service as service_model
+from app.schemas import service as service_schema
 
 # Create a service for a business
 def create_service_for_business(

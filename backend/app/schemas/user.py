@@ -12,9 +12,6 @@ class UserBase(BaseModel):
 # --- Specific Operations Schemas
 class UserCreate(UserBase):
     password: str
-    
-class UserCreate(UserBase):
-    password: Optional[str] = None
 
 
 # --- API response Schemas
@@ -24,7 +21,7 @@ class User(UserBase):
     
     appointments: List["Appointment"] = []
     
-    business: List["Business"] = []
+    businesses: List["Business"] = []
 
     # Allow User schema to be created from ORM model
     class Config:

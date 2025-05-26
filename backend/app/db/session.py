@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-from core.config import settings
+from app.core.config import settings
 
 
 # Create engine to connect to stablish db connection

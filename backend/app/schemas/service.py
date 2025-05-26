@@ -1,7 +1,7 @@
 # app/schemas/service.py
 
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 
 # Base Schema
 class ServiceBase(BaseModel):
@@ -25,6 +25,8 @@ class ServiceUpdate(BaseModel):
 class Service(ServiceBase):
     id: int
     business_id: int
+    
+    appointments: List["Appointment"] = []
 
     class Config:
         from_attributes = True

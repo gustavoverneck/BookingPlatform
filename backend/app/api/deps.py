@@ -6,14 +6,14 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 
-from core.config import settings
-from db.session import SessionLocal
-from models import user as user_model
-from services import user_service
+from app.core.config import settings
+from app.db.session import SessionLocal
+from app.models import user as user_model
+from app.services import user_service
 
 
 reusable_oauth2 = OAuth2PasswordBearer(
-    tokenUrl=f"/api/v1/auth/login"
+    tokenUrl=f"/api/auth/login"
 )
 
 class TokenPayload(BaseModel):

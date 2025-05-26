@@ -1,18 +1,16 @@
 # main.py
 
-from api.api import api_router
-from core.config import settings
-from db import session
-from db.session import Base, engine
+from app.api.api import api_router
+from app.core.config import settings
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 # Create all db tables that inherit from Base
-Base.metadata.create_all(bind=engine)
+#Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
-    openapi_url=f"/api/v1/openapi.json" # URL da documentação
+    openapi_url=f"/api/openapi.json"
 )
 
 # CORS config
@@ -24,4 +22,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(api_router, prefix="/api/v1")
+app.include_router(api_router, prefix="/api")
