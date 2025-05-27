@@ -24,7 +24,7 @@ const Navbar = () => {
         {token ? (
           <>
             <li>
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/dashboard">Gerenciar</Link>
             </li>
             <li>
               <button onClick={handleLogout} className="navbar-button-link">

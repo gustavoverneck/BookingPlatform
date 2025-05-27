@@ -63,9 +63,9 @@ const ServiceCreateForm = ({ businessId, serviceToEdit, onSuccess }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ border: '1px solid #ccc', padding: '15px', marginTop: '10px' }}>
+        <form onSubmit={handleSubmit} className="service-form">
             <h4>Novo Serviço</h4>
-            <div>
+            <div className="service-form-group">
                 <label htmlFor={`serviceName-${businessId}`}>Nome do Serviço:</label>
                 <input
                     type="text"
@@ -75,7 +75,7 @@ const ServiceCreateForm = ({ businessId, serviceToEdit, onSuccess }) => {
                     required
                 />
             </div>
-            <div>
+            <div className="service-form-group">
                 <label htmlFor={`serviceDescription-${businessId}`}>Descrição:</label>
                 <textarea
                     id={`serviceDescription-${businessId}`}
@@ -84,7 +84,7 @@ const ServiceCreateForm = ({ businessId, serviceToEdit, onSuccess }) => {
                     rows="3"
                 />
             </div>
-            <div>
+            <div className="service-form-group">
                 <label htmlFor={`serviceDuration-${businessId}`}>Duração (minutos):</label>
                 <input
                     type="number"
@@ -94,7 +94,7 @@ const ServiceCreateForm = ({ businessId, serviceToEdit, onSuccess }) => {
                     required
                 />
             </div>
-            <div>
+            <div className="service-form-group">
                 <label htmlFor={`servicePrice-${businessId}`}>Preço (R$):</label>
                 <input
                     type="number"
@@ -105,9 +105,9 @@ const ServiceCreateForm = ({ businessId, serviceToEdit, onSuccess }) => {
                     required
                 />
             </div>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {success && <p style={{ color: 'green' }}>{success}</p>}
-            <button type="submit">Cadastrar Serviço</button>
+            {error && <div className="service-form-error">{error}</div>}
+            {success && <div className="service-form-success">{success}</div>}
+            <button type="submit" className="service-form-button">Cadastrar Serviço</button>
         </form>
     );
 };

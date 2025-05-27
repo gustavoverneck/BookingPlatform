@@ -40,6 +40,14 @@ body {
   line-height: 1.6;
 }
 
+/* Error message styles */
+.error-message {
+  color: var(--error-color);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
 /* Basic styles for headings */
 h1, h2, h3, h4, h5, h6 {
   color: var(--primary-text-color);
@@ -88,7 +96,7 @@ input[type="date"],
 input[type="time"],
 textarea {
   font-family: var(--primary-font);
-  width: calc(100% - 22px); /* Considers padding and border */
+  width: 100%;
   padding: 0.5rem 0.75rem;
   font-size: 1.25rem;
   line-height: 1.5;

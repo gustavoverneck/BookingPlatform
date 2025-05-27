@@ -10,7 +10,6 @@ const BusinessServicesManager = ({ businessId, onServicesUpdated }) => {
     const [error, setError] = useState('');
     const [editingService, setEditingService] = useState(null); 
 
-
     const fetchServices = useCallback(async () => {
         if (!businessId) return;
         setLoading(true);
@@ -31,7 +30,7 @@ const BusinessServicesManager = ({ businessId, onServicesUpdated }) => {
         setEditingService(null);
         fetchServices();
         if (onServicesUpdated) {
-        onServicesUpdated();
+            onServicesUpdated();
         }
     };
 
@@ -59,41 +58,54 @@ const BusinessServicesManager = ({ businessId, onServicesUpdated }) => {
         }
     };
 
-    if (loading) return <p>Carregando serviços...</p>;
-    if (error) return <p style={{ color: 'red' }}>{error}</p>;
+    if (loading) return <p className="services-loading">Carregando serviços...</p>;
+    if (error) return <p className="services-error">{error}</p>;
 
     if (editingService) {
         return (
-        <ServiceCreateForm
-            businessId={businessId}
-            serviceToEdit={editingService}
-            onSuccess={handleFormSuccess}
-        />
+            <ServiceCreateForm
+                businessId={businessId}
+                serviceToEdit={editingService}
+                onSuccess={handleFormSuccess}
+            />
         );
     }
 
     return (
-        <div style={{ marginTop: '15px', borderTop: '1px dashed #ccc', paddingTop: '15px' }}>
-        <h5>Serviços Oferecidos:</h5>
-        {services.length === 0 ? (
-            <p>Nenhum serviço cadastrado para esta empresa.</p>
-        ) : (
-            <ul style={{ listStyle: 'none', padding: 0 }}>
-            {services.map(service => (
-                <li key={service.id} style={{ /* ... (estilos) ... */ }}>
-                {/* ... (detalhes do serviço) ... */}
-                <p>Duração: {service.duration_minutes} min | Preço: R$ {Number(service.price).toFixed(2)}</p>
-                {/* 6. Botão de Editar */}
-                <button onClick={() => handleStartEditService(service)} style={{ marginRight: '10px' }}>
-                    Editar
-                </button>
-                <button onClick={() => handleDeleteService(service.id)} style={{ color: 'red' }}>
-                    Excluir Serviço
-                </button>
-                </li>
-            ))}
-            </ul>
-        )}
+        <div className="business-services-manager">
+            <h5 className="services-manager-title">Serviços Oferecidos:</h5>
+            {services.length === 0 ? (
+                <p className="services-empty-state">Nenhum serviço cadastrado para esta empresa.</p>
+            ) : (
+                <ul className="services-list">
+                    {services.map(service => (
+                        <li key={service.id} className="service-item">
+                            <h6 className="service-name">{service.name}</h6>
+                            <p className="service-description">{service.description}</p>
+                            <p className="service-details">
+                                Duração: {service.duration_minutes} min
+                            </p>
+                            <p className="service-details">
+                                Preço: R$ {Number(service.price).toFixed(2)}
+                            </p>
+                            <div className="service-actions">
+                                <button 
+                                    onClick={() => handleStartEditService(service)} 
+                                    className="service-edit-btn"
+                                >
+                                    Editar
+                                </button>
+                                <button 
+                                    onClick={() => handleDeleteService(service.id)} 
+                                    className="service-delete-btn"
+                                >
+                                    Excluir Serviço
+                                </button>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 };

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import apiClient from '../services/api';
+import './UserAppointmentsList.css';
+import { FaCalendarAlt, FaClock, FaBuilding } from 'react-icons/fa';
 
 const UserAppointmentsList = () => {
     const [appointments, setAppointments] = useState([]);
@@ -40,36 +42,62 @@ const UserAppointmentsList = () => {
     };
 
     if (loading) {
-        return <p>Carregando seus agendamentos...</p>;
+        return (
+            <div className="user-businesses-container">
+                <p>Carregando seus agendamentos...</p>
+            </div>
+        );
     }
 
     if (error) {
-        return <p style={{ color: 'red' }}>{error}</p>;
+        return (
+            <div className="user-businesses-container">
+                <p style={{ color: 'red' }}>{error}</p>
+            </div>
+        );
     }
 
     if (appointments.length === 0) {
-        return <p>Você ainda não possui agendamentos.</p>;
+        return (
+            <div className="user-businesses-container">
+                <div className="empty-businesses">
+                    <div className="empty-businesses-icon">📅</div>
+                    <p>Você ainda não possui agendamentos.</p>
+                </div>
+            </div>
+        );
     }
 
     return (
-        <div>
-            <h4>Seus Agendamentos:</h4>
-            <ul style={{ listStyle: 'none', padding: 0 }}>
+        <div className="user-businesses-container">
+            <div className="user-businesses-header">
+                <h1 className="user-businesses-title">Meus Agendamentos</h1>
+                <p className="user-businesses-subtitle">Gerencie seus compromissos agendados</p>
+            </div>
+            
+            <div className="user-businesses-grid">
                 {appointments.map((appointment) => (
-                    <li key={appointment.id} style={{ border: '1px solid #ddd', padding: '15px', marginBottom: '10px', borderRadius: '5px' }}>
-                        <p><strong>Serviço:</strong> {appointment.title || appointment.service.name}</p>
-                        <p>
-                            <strong>Início:</strong> {formatDate(appointment.start_time)}
-                        </p>
-                        <p>
-                            <strong>Fim:</strong> {formatDate(appointment.end_time)}
-                        </p>
-                        <p>
-                            <small>Empresa ID: {appointment.service.business_id}</small>
-                        </p>
-                    </li>
+                    <div key={appointment.id} className="business-card">
+                        <div className="business-header">
+                            <h3 className="business-title">
+                                {appointment.title || appointment.service.name}
+                            </h3>
+                        </div>
+                        
+                        <div className="business-content">
+                            <div className="business-info">
+                                <FaCalendarAlt /> {formatDate(appointment.start_time)}
+                            </div>
+                            <div className="business-info">
+                                <FaClock /> {formatDate(appointment.end_time)}
+                            </div>
+                            <div className="business-category">
+                                <FaBuilding /> Empresa ID: {appointment.service.business_id}
+                            </div>
+                        </div>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };

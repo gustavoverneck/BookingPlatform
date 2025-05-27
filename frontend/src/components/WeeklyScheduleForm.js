@@ -108,48 +108,51 @@ const WeeklyScheduleForm = ({ businessId, onScheduleUpdated }) => {
         }
     };
 
-    if (loading) return <p>Carregando formulário de horário...</p>;
+    if (loading) return <p className="loading-message">Carregando formulário de horário...</p>;
 
     return (
-        <form onSubmit={handleSubmit} style={{ border: '1px solid #ccc', padding: '20px', marginTop: '20px' }}>
-            <h4>Configurar Horário Semanal</h4>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {success && <p style={{ color: 'green' }}>{success}</p>}
+        <form onSubmit={handleSubmit} className="weekly-schedule-form">
+            <h4 className="form-title">Configurar Horário Semanal</h4>
+            {error && <p className="error-message">{error}</p>}
+            {success && <p className="success-message">{success}</p>}
 
             {schedule.map((daySetting, index) => (
-                <div key={daySetting.day_of_week} style={{ marginBottom: '15px', paddingBottom: '10px', borderBottom: '1px solid #eee' }}>
-                    <h5>{daysOfWeek.find(d => d.id === daySetting.day_of_week).name}</h5>
-                    <label style={{ marginRight: '10px' }}>
+                <div key={daySetting.day_of_week} className="day-setting">
+                    <h5 className="day-name">{daysOfWeek.find(d => d.id === daySetting.day_of_week).name}</h5>
+                    <label className="closed-checkbox-label">
                         <input
                             type="checkbox"
+                            className="closed-checkbox"
                             checked={daySetting.is_closed}
                             onChange={(e) => handleInputChange(index, 'is_closed', e.target.checked)}
                         />
                         Fechado
                     </label>
                     {!daySetting.is_closed && (
-                        <>
-                            <label style={{ marginLeft: '10px', marginRight: '5px' }}>Abre às:</label>
+                        <div className="time-inputs">
+                            <label className="time-label">ABRE ÀS:</label>
                             <input
                                 type="time"
+                                className="time-input open-time"
                                 value={daySetting.open_time}
                                 onChange={(e) => handleInputChange(index, 'open_time', e.target.value)}
                                 disabled={daySetting.is_closed}
                                 required={!daySetting.is_closed}
                             />
-                            <label style={{ marginLeft: '10px', marginRight: '5px' }}>Fecha às:</label>
+                            <label className="time-label">FECHA ÀS:</label>
                             <input
                                 type="time"
+                                className="time-input close-time"
                                 value={daySetting.close_time}
                                 onChange={(e) => handleInputChange(index, 'close_time', e.target.value)}
                                 disabled={daySetting.is_closed}
                                 required={!daySetting.is_closed}
                             />
-                        </>
+                        </div>
                     )}
                 </div>
             ))}
-            <button type="submit">Salvar Horário Semanal</button>
+            <button type="submit" className="submit-button">Salvar Horário Semanal</button>
         </form>
     );
 };

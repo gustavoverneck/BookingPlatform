@@ -10,7 +10,7 @@
 .auth-card {
     width: 100%;
     max-width: 500px;
-    background-color: var(--card-background-color);
+    background-color: #f4f4f4c2;
     padding: 2rem 2.5rem;
     border-radius: var(--default-border-radius);
     box-shadow: var(--default-shadow);

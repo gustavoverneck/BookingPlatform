@@ -6,6 +6,8 @@ import ServiceCreateForm from './ServiceCreateForm';
 import BusinessServicesManager from './BusinessServicesManager';
 import WeeklyScheduleForm from './WeeklyScheduleForm';
 
+import './UserBusinessesList.css'
+
 const UserBusinessesList = () => {
   const [businesses, setBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -56,67 +58,81 @@ const UserBusinessesList = () => {
     if (editingScheduleFor === businessIdUpdated) setEditingScheduleFor(null);
   };
 
-  if (loading) return <p>Carregando suas empresas...</p>;
-  if (error) return <p style={{ color: 'red' }}>{error}</p>;
+  if (loading) return <div className="user-businesses-container"><p>Carregando suas empresas...</p></div>;
+  if (error) return <div className="user-businesses-container"><p style={{ color: 'red' }}>{error}</p></div>;
 
   return (
-    <div>
-      <h4>Suas Empresas Cadastradas:</h4>
+    <div className="user-businesses-container">
+      <div className="user-businesses-header">
+        <h1 className="user-businesses-title">Minhas Empresas</h1>
+        <p className="user-businesses-subtitle">Gerencie seus negócios cadastrados</p>
+      </div>
+      
       {businesses.length === 0 ? (
-        <p>Você ainda não cadastrou nenhuma empresa.</p>
+        <div className="empty-businesses">
+          <div className="empty-businesses-icon">🏢</div>
+          <p>Você ainda não cadastrou nenhuma empresa.</p>
+        </div>
       ) : (
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+        <div className="user-businesses-grid">
           {businesses.map((business) => (
-            <li key={business.id} style={{ border: '1px solid #eee', padding: '15px', marginBottom: '15px', borderRadius: '5px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <strong>
-                  <Link to={`/businesses/${business.id}`} style={{ fontSize: '1.2em', textDecoration: 'none' }}>
+            <div key={business.id} className="business-card">
+              <div className="business-header">
+                <h2 className="business-title">
+                  <Link to={`/businesses/${business.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
                     {business.name}
                   </Link>
-                </strong>
+                </h2>
               </div>
-              {business.description && <p style={{ marginTop: '5px', color: '#555' }}>{business.description}</p>}
+              
+              <div className="business-content">
+                {business.description && (
+                  <div className="business-category">
+                    {business.description}
+                  </div>
+                )}
 
-              <div style={{ marginTop: '15px', borderTop: '1px solid #f0f0f0', paddingTop: '15px' }}>
-                <button onClick={() => handleToggleServiceCreateForm(business.id)} style={{ marginRight: '10px', marginBottom: '5px' }}>
-                  {showServiceCreateFormFor === business.id ? 'Fechar Formulário Serviço' : 'Adicionar Novo Serviço'}
-                </button>
-                <button onClick={() => handleToggleServicesManager(business.id)} style={{ marginRight: '10px', marginBottom: '5px' }}>
-                  {showServicesManagerFor === business.id ? 'Ocultar Meus Serviços' : 'Gerenciar Meus Serviços'}
-                </button>
-                <button onClick={() => handleToggleWeeklyScheduleForm(business.id)} style={{ marginBottom: '5px' }}>
-                  {editingScheduleFor === business.id ? 'Fechar Horários' : 'Configurar Horário Semanal'}
-                </button>
+                <div style={{ marginTop: '15px', borderTop: '1px solid #f0f0f0', paddingTop: '15px',  }}>
+                  <button className="business-action-button" onClick={() => handleToggleServiceCreateForm(business.id)}>
+                    {showServiceCreateFormFor === business.id ? 'Fechar Formulário Serviço' : 'Adicionar Novo Serviço'}
+                  </button>
+                  <button className="business-action-button" onClick={() => handleToggleServicesManager(business.id)}>
+                    {showServicesManagerFor === business.id ? 'Ocultar Meus Serviços' : 'Gerenciar Meus Serviços'}
+                  </button>
+                  <button className="business-action-button" onClick={() => handleToggleWeeklyScheduleForm(business.id)}>
+                    {editingScheduleFor === business.id ? 'Fechar Horários' : 'Configurar Horário Semanal'}
+                  </button>
+                </div>
+
+                {showServiceCreateFormFor === business.id && (
+                  <ServiceCreateForm
+                    businessId={business.id}
+                    onSuccess={() => {
+                      handleGenericUpdate(business.id);
+                      alert('Serviço criado! Se o painel "Gerenciar Meus Serviços" estiver aberto, ele pode precisar ser reaberto para mostrar o novo serviço, ou ele será atualizado se você realizar uma ação nele.');
+                    }}
+                  />
+                )}
+
+                {showServicesManagerFor === business.id && (
+                  <BusinessServicesManager
+                    businessId={business.id}
+                  />
+                )}
+
+                {editingScheduleFor === business.id && (
+                  <WeeklyScheduleForm
+                    businessId={business.id}
+                    onScheduleUpdated={() => {
+                      handleGenericUpdate(business.id);
+                      alert('Horário semanal atualizado! A página de disponibilidade da empresa refletirá essas mudanças.');
+                    }}
+                  />
+                )}
               </div>
-
-              {showServiceCreateFormFor === business.id && (
-                <ServiceCreateForm
-                  businessId={business.id}
-                  onSuccess={() => {
-                    handleGenericUpdate(business.id);
-                    alert('Serviço criado! Se o painel "Gerenciar Meus Serviços" estiver aberto, ele pode precisar ser reaberto para mostrar o novo serviço, ou ele será atualizado se você realizar uma ação nele.');
-                  }}
-                />
-              )}
-
-              {showServicesManagerFor === business.id && (
-                <BusinessServicesManager
-                  businessId={business.id}
-                />
-              )}
-
-              {editingScheduleFor === business.id && (
-                <WeeklyScheduleForm
-                  businessId={business.id}
-                  onScheduleUpdated={() => {
-                    handleGenericUpdate(business.id);
-                    alert('Horário semanal atualizado! A página de disponibilidade da empresa refletirá essas mudanças.');
-                  }}
-                />
-              )}
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
