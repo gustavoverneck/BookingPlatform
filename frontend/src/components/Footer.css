@@ -11,7 +11,8 @@
 
 .app-footer p {
   margin: 0;
-  font-size: 0.875em;
+  font-size: 1em;
+  color: var(--secondary-text-color);
 }
 
 .app-footer a {

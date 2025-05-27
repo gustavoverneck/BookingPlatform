@@ -10,14 +10,24 @@
 }
 
 .navbar-brand a {
-  color: var(--primary-text-color);
+  color: var(--primary-color);
   font-size: 1.5em; /* Tamanho maior para a marca */
   font-weight: bold;
   text-decoration: none;
 }
 
+.navbar-logo {
+  width: 250px;
+  height: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: middle;
+  object-fit: cover;
+  object-position: center;
+}
+
 .navbar-brand a:hover {
-  color: var(--primary-color); /* Cor primária no hover */
+  color: var(--secondary-text-color); /* Cor primária no hover */
 }
 
 .navbar-links {
@@ -36,14 +46,15 @@
 .navbar-button-link { /* Estilo compartilhado para links e botões que parecem links */
   color: var(--secondary-text-color);
   text-decoration: none;
-  font-size: 1em;
-  padding: 0.5rem 0; /* Padding para facilitar o clique */
+  font-size: 1.3em;
+  padding: 0.5rem 0.5rem; /* Padding para facilitar o clique */
   transition: color 0.2s ease-in-out;
 }
 
 .navbar-links a:hover,
 .navbar-button-link:hover {
-  color: var(--primary-text-color); /* Texto primário no hover */
+  color: var(--primary-color); /* Texto primário no hover */
+  text-decoration: underline;
 }
 
 /* Estilo específico para o botão de logout para que ele se pareça com um link */

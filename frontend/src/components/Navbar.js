@@ -1,42 +1,41 @@
 // frontend/src/components/Navbar.js
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Nosso hook de autenticação
-import './Navbar.css'; // Vamos criar este arquivo de estilo
+import { useAuth } from '../context/AuthContext';
+import './Navbar.css';
 
 const Navbar = () => {
   const { token, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout(); // Limpa o token do contexto e localStorage
-    navigate('/'); // Redireciona para a HomePage após o logout
+    logout(); 
+    navigate('/');
   };
 
   return (
     <nav className="app-navbar">
       <div className="navbar-brand">
-        <Link to="/">Plataforma de Agendamentos</Link>
+        <Link to="/">
+          <img src="/EncaixaAi_light.png" alt="Encaixa Ai" className="navbar-logo" />
+        </Link>
       </div>
       <ul className="navbar-links">
         {token ? (
-          // Links para usuários logados
           <>
             <li>
               <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
-              {/* O botão de logout chama handleLogout */}
               <button onClick={handleLogout} className="navbar-button-link">
-                Sair (Logout)
+                Sair
               </button>
             </li>
           </>
         ) : (
-          // Links para usuários não logados
           <>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">Início</Link>
             </li>
             <li>
               <Link to="/login">Login</Link>

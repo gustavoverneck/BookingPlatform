@@ -42,41 +42,80 @@ const SignUpPage = () => {
     };
 
     return (
-        <div>
-            <h2>Criar Nova Conta</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Nome Completo:</label>
-                    <input
-                        type="text"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        required
-                    />
+        <main className="auth-container">
+            <div className="auth-wrapper">
+                <div className="auth-card">
+                    <div className="auth-header">
+                        <h1 className="auth-title">Criar Nova Conta</h1>
+                        <p className="auth-subtitle">Cadastre-se para começar a gerenciar seus horários e conexões.</p>
+                    </div>
+
+                    <form className="auth-form" onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="fullName" className="form-label">Nome Completo</label>
+                            <input
+                                type="text"
+                                id="fullName"
+                                className="form-input"
+                                value={fullName}
+                                onChange={(e) => setFullName(e.target.value)}
+                                placeholder="Digite seu nome completo"
+                                required
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="email" className="form-label">Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                className="form-input"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Digite seu email"
+                                required
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="password" className="form-label">Senha</label>
+                            <input
+                                type="password"
+                                id="password"
+                                className="form-input"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Digite sua senha"
+                                required
+                            />
+                        </div>
+
+                        {error && (
+                            <div className="error-message" role="alert">
+                                {error}
+                            </div>
+                        )}
+
+                        {success && (
+                            <div className="success-message" role="alert">
+                                {success}
+                            </div>
+                        )}
+
+                        <button type="submit" className="auth-button">
+                            Criar Conta
+                        </button>
+                    </form>
+
+                    <div className="auth-footer">
+                        <p className="signup-prompt">
+                            Já tem uma conta? 
+                            <a href="/login" className="signup-link"> Fazer login</a>
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Senha:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                {success && <p style={{ color: 'green' }}>{success}</p>}
-                <button type="submit">Criar Conta</button>
-            </form>
-        </div>
+            </div>
+        </main>
     );
 };
 

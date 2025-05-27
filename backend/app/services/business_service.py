@@ -43,3 +43,11 @@ def get_businesses_by_owner(
         .limit(limit)
         .all()
     )
+
+# Delete a business
+def delete_business(db: Session, business_id: int) -> Optional[business_model.Business]:
+    db_business = db.query(business_model.Business).filter(business_model.Business.id == business_id).first()
+    if db_business:
+        db.delete(db_business)
+        db.commit()
+    return db_business

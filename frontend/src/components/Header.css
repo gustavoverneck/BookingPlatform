@@ -5,3 +5,9 @@
   top: 0;
   z-index: 1000;
 }
+
+.app-header a {
+  color: var(--secondary-text-color);
+  text-decoration: none;
+  margin: 0 0.5rem;
+}

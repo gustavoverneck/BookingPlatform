@@ -184,3 +184,29 @@ def delete_business_special_day(
         raise HTTPException(status_code=404, detail="Regra de dia especial não encontrada para esta data")
 
     return
+
+
+@router.delete("/{business_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_single_business(
+    *,
+    db: Session = Depends(deps.get_db),
+    business_id: int,
+    current_user: user_model.User = Depends(deps.get_current_active_user)
+):
+
+    db_business = business_service.get_business(db=db, business_id=business_id)
+    if not db_business:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Empresa não encontrada",
+        )
+
+    if db_business.owner_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Não tem permissão para deletar esta empresa",
+        )
+
+    business_service.delete_business(db=db, business_id=business_id)
+
+    return
