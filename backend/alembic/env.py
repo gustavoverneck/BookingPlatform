@@ -16,7 +16,9 @@ from app.db.session import Base
 from app.models import user      
 from app.models import appointment 
 from app.models import business  
-from app.models import service   
+from app.models import service
+from app.models import operating_hour
+from app.models import special_day
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

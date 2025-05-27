@@ -6,13 +6,15 @@ from .user import User
 
 # Base Schemas
 class AppointmentBase(BaseModel):
-    title: str
+    title: Optional[str] = None
     start_time: datetime.datetime
     end_time: datetime.datetime
 
 # --- Specific Operations Schemas
 class AppointmentCreate(AppointmentBase):
-    service_id: int 
+    service_id: int
+    start_time: datetime.datetime
+    end_time: datetime.datetime
 
 class AppointmentUpdate(AppointmentBase):
     title: Optional[str] = None
@@ -22,9 +24,11 @@ class AppointmentUpdate(AppointmentBase):
 # --- API response Schemas
 class Appointment(AppointmentBase):
     id: int
-    user: "User"
+    user_id: int
     service_id: int
-    service: "Service"
+    
+    user: "UserInAppointmentResponse" 
+    service: "ServiceInAppointmentResponse"
 
     class Config:
         from_attributes = True

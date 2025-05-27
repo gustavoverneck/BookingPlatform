@@ -8,8 +8,6 @@ import datetime
 class BusinessBase(BaseModel):
     name: str
     description: Optional[str] = None
-    opens_at: Optional[datetime.time] = None
-    closes_at: Optional[datetime.time] = None
 
 # New Business Schema
 class BusinessCreate(BusinessBase):
@@ -19,16 +17,16 @@ class BusinessCreate(BusinessBase):
 class BusinessUpdate(BusinessBase):
     name: Optional[str] = None
     description: Optional[str] = None
-    opens_at: Optional[datetime.time] = None
-    closes_at: Optional[datetime.time] = None
-
 
 # API response Schema
 class Business(BusinessBase):
     id: int
     owner_id: int
-    owner: "User"
+    owner: "UserInResponse"
     services: List["Service"] = []
+
+    weekly_schedule: List["OperatingHour"] = []
+    special_days: List["SpecialDay"] = []
 
     class Config:
         from_attributes = True

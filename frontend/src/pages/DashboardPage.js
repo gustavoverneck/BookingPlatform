@@ -5,12 +5,11 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import BusinessCreateForm from '../components/BusinessCreateForm';
 import UserBusinessesList from '../components/UserBusinessesList';
-
+import UserAppointmentsList from '../components/UserAppointmentsList';
 
 const DashboardPage = () => {
     const { logout } = useAuth();
     const navigate = useNavigate();
-
     const [refreshKey, setRefreshKey] = useState(0);
 
     const handleLogout = () => {
@@ -26,18 +25,27 @@ const DashboardPage = () => {
         <div>
             <h2>Dashboard</h2>
             <p>Você está logado! Bem-vindo à sua página principal.</p>
-            <button onClick={handleLogout}>Sair (Logout)</button>
 
             <hr style={{ margin: '20px 0' }} /> 
 
-            <h3>Cadastrar Nova Empresa</h3>
-            
-            <BusinessCreateForm onBusinessCreated={handleBusinessCreated} />
+            <section style={{marginBottom: '30px'}}>
+                <h3>Meus Agendamentos</h3>
+                <UserAppointmentsList />
+            </section>
 
-            <hr style={{ margin: '20px 0' }} />
-            <h3>Minhas Empresas</h3>
-            
-            <UserBusinessesList key={refreshKey} />
+            <hr style={{ margin: '20px 0' }} /> 
+
+            <section style={{marginBottom: '30px'}}>
+                <h3>Minhas Empresas</h3>
+                <UserBusinessesList key={refreshKey} /> 
+            </section>
+
+            <hr style={{ margin: '20px 0' }} /> 
+
+            <section>
+                <h3>Cadastrar Nova Empresa</h3>
+                <BusinessCreateForm onBusinessCreated={handleBusinessCreated} />
+            </section>
         </div>
     );
 };

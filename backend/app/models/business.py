@@ -21,5 +21,15 @@ class Business(Base):
         cascade="all, delete-orphan"
     )
     
-    opens_at = Column(Time, nullable=True)
-    closes_at = Column(Time, nullable=True)
+    weekly_schedule = relationship(
+        "OperatingHour", 
+        back_populates="business", 
+        cascade="all, delete-orphan",
+        lazy="selectin"
+    )
+    special_days = relationship(
+        "SpecialDay", 
+        back_populates="business", 
+        cascade="all, delete-orphan",
+        lazy="selectin"
+    )

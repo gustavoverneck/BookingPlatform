@@ -21,11 +21,17 @@ class ServiceUpdate(BaseModel):
     duration_minutes: Optional[int] = None
     price: Optional[float] = None
 
+class ServiceInAppointmentResponse(ServiceBase):
+    id: int
+    business_id: int
+    
+    class Config:
+        from_attributes = True
+
 # API response Schema
 class Service(ServiceBase):
     id: int
     business_id: int
-    
     appointments: List["Appointment"] = []
 
     class Config:

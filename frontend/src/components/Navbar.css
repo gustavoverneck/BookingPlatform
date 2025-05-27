@@ -1,0 +1,55 @@
+/* frontend/src/components/Navbar.css */
+.app-navbar {
+  background-color: var(--element-background-color); /* Cor de fundo para elementos */
+  padding: 0.75rem 2rem; /* Padding um pouco maior para a barra de navegação */
+  display: flex;
+  justify-content: space-between; /* Alinha a marca à esquerda e os links à direita */
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--default-shadow);
+}
+
+.navbar-brand a {
+  color: var(--primary-text-color);
+  font-size: 1.5em; /* Tamanho maior para a marca */
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar-brand a:hover {
+  color: var(--primary-color); /* Cor primária no hover */
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  align-items: center; /* Alinha itens verticalmente se o botão for maior */
+}
+
+.navbar-links li {
+  margin-left: 1.5rem; /* Espaçamento entre os links */
+}
+
+.navbar-links a,
+.navbar-button-link { /* Estilo compartilhado para links e botões que parecem links */
+  color: var(--secondary-text-color);
+  text-decoration: none;
+  font-size: 1em;
+  padding: 0.5rem 0; /* Padding para facilitar o clique */
+  transition: color 0.2s ease-in-out;
+}
+
+.navbar-links a:hover,
+.navbar-button-link:hover {
+  color: var(--primary-text-color); /* Texto primário no hover */
+}
+
+/* Estilo específico para o botão de logout para que ele se pareça com um link */
+.navbar-button-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--primary-font); /* Garante a mesma fonte */
+}

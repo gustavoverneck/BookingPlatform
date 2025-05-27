@@ -1,0 +1,26 @@
+/* frontend/src/components/Footer.css */
+.app-footer {
+  background-color: var(--element-background-color);
+  color: var(--secondary-text-color);
+  text-align: center;
+  padding: 1.5rem 1rem;
+  border-top: 1px solid var(--border-color);
+
+  margin-top: auto; 
+}
+
+.app-footer p {
+  margin: 0;
+  font-size: 0.875em;
+}
+
+.app-footer a {
+  color: var(--secondary-text-color);
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+.app-footer a:hover {
+  color: var(--primary-text-color);
+  text-decoration: underline;
+}
